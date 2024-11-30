@@ -5,7 +5,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -15,6 +15,8 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort, MatSortModule, Sort} from '@angular/material/sort';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
+import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {DialogComponent} from './dialog/dialog.component';
 
 interface PeriodicElement {
   position: number;
@@ -41,7 +43,8 @@ interface PeriodicElement {
     MatGridListModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -66,17 +69,17 @@ export class AppComponent implements AfterViewInit {
     {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
     {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
   ]);
-
   elementColumns: string[] = ['position', 'name', 'weight', 'symbol'];
 
-  fb = inject(FormBuilder);
-  form = this.fb.group({
+  fb: FormBuilder = inject(FormBuilder);
+  form: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     favouriteFood: ['',],
     dateOfBirth: ['']
   });
 
   private liveAnnouncer: LiveAnnouncer = inject(LiveAnnouncer);
+  private dialog: MatDialog = inject(MatDialog);
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
 
@@ -95,5 +98,10 @@ export class AppComponent implements AfterViewInit {
     if(this.paginator) {
       this.elements.paginator = this.paginator;
     }
+  }
+
+  openDialog(): void {
+    const dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(DialogComponent);
+    dialogRef.afterClosed().subscribe(result => console.log(`Dialog result: `, result));
   }
 }

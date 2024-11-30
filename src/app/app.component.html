@@ -118,6 +118,9 @@
       <tr mat-row *matRowDef="let row; columns: elementColumns"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <button (click)="openDialog()">
+      Open Dialog
+    </button>
     <router-outlet/>
   </mat-sidenav-content>
 </mat-sidenav-container>
