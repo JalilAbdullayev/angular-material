@@ -10,6 +10,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,8 @@ import {MatIconButton} from '@angular/material/button';
     MatToolbarModule,
     RouterLink,
     MatIconModule,
-    MatIconButton
+    MatIconButton,
+    MatGridListModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -37,4 +39,11 @@ export class AppComponent {
     favouriteFood: ['',],
     dateOfBirth: ['']
   });
+
+  tiles: any[] = [
+    {text: 'One', cols: 3, rows: 1},
+    {text: 'Two', cols: 1, rows: 2},
+    {text: 'Three', cols: 1, rows: 1},
+    {text: 'Four', cols: 2, rows: 1}
+  ];
 }
