@@ -17,6 +17,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {DialogComponent} from './dialog/dialog.component';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 interface PeriodicElement {
   position: number;
@@ -45,6 +46,7 @@ interface PeriodicElement {
     MatSortModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatSnackBarModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -80,6 +82,7 @@ export class AppComponent implements AfterViewInit {
 
   private liveAnnouncer: LiveAnnouncer = inject(LiveAnnouncer);
   private dialog: MatDialog = inject(MatDialog);
+  private snackBar: MatSnackBar = inject(MatSnackBar);
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
 
@@ -102,6 +105,15 @@ export class AppComponent implements AfterViewInit {
 
   openDialog(): void {
     const dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(DialogComponent);
-    dialogRef.afterClosed().subscribe(result => console.log(`Dialog result: `, result));
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: `, result);
+      this.openSnackBar('Dialog closed', 'Close');
+    });
+  }
+
+  openSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    })
   }
 }
