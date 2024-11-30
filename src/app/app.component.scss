@@ -6,3 +6,11 @@ form {
   gap: 20px;
   height: 100vh;
 }
+
+mat-sidenav-container {
+  height: 100vh;
+
+  mat-sidenav {
+    background-color: #CCC;
+  }
+}

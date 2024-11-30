@@ -1,3 +1,36 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" opened>
+    <p>
+      <a routerLink="/home">
+        Home
+      </a>
+    </p>
+    <p>
+      <a routerLink="/about">
+        About
+      </a>
+    </p>
+    <p>
+      <a routerLink="/contact">
+        Contact
+      </a>
+    </p>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>
+          menu
+        </mat-icon>
+      </button>
+      My App
+    </mat-toolbar>
+    <div>
+      Welcome to our application
+    </div>
+    <router-outlet/>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 <form [formGroup]="form">
   <!-- Input -->
   <mat-form-field appearance="fill">
@@ -43,5 +76,3 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 </form>
-
-<router-outlet/>
